@@ -86,3 +86,7 @@ src/
 Video:
 
 https://firebasestorage.googleapis.com/v0/b/uploadimages-87460.appspot.com/o/pruebas%2FRecordIt-1720594993.mov?alt=media&token=17ff3d97-1a2e-4cf8-8ca1-8c4c962b26cf
+
+
+El repoitorio de la api se encuentra en el siguiente enlace:
+https://github.com/RicardoCordovilla/bp-api_reto
