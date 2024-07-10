@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseUrl = "http:192.168.100.22:9000/";
+export const baseUrl = "https://bp-apireto-production.up.railway.app/";
 const mainpath = "bp/";
 const authorId = "1234567890";
 
