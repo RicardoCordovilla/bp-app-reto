@@ -18,10 +18,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ricardocordovilla.bpapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7cfe1943-4f1b-41c4-931b-d650120d9f8d"
+      }
+    },
+    "owner": "ricardocordovilla"
   }
 }
