@@ -1,15 +1,18 @@
 
 import React from 'react'
-import { View } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
+import styles from './productheader.styles'
+const ProductHeader = ({ productStore }) => {
+    const { id, description } = productStore
 
-const ProductHeader = ({ id, extraInfo }) => {
     return (
-        <View>
-            <Text>
+        <View style={styles.productHeader_container}>
+
+            <Text style={styles.productHeader_title}>
                 ID: {id}
             </Text>
-            <Text>
-                {extraInfo}
+            <Text style={styles.productHeader_info}>
+                {description}
             </Text>
         </View>
     )

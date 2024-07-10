@@ -8,7 +8,7 @@ const ProductFormField = ({ field }) => {
             <Text>
                 {field.label}
             </Text>
-            <TextInput 
+            <TextInput
                 value={field.value}
                 onChangeText={field.onChange}
             />

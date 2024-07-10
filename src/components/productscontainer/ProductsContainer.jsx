@@ -6,7 +6,7 @@ import styles from './productscontainer.styles'
 const ProductsContainer = ({ items }) => {
     return (
         <View style={styles.productsContainer_container}>
-            {
+            {items.length > 0 &&
                 items.map((item, index) => (
                     <View key={item.id} >
                         <RegisterRow product={item} />

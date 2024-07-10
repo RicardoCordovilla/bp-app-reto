@@ -1,24 +1,24 @@
-import React from 'react'
-import { Text, TextInput, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { ScrollView, Text, TextInput, View } from 'react-native'
 import SearchField from '../../components/searchfield/SearchField'
 import ProductsContainer from '../../components/productscontainer/ProductsContainer'
 import API from '../../utils/fetch/api'
 import { productsExample } from '../../utils/fetch/products'
 import styles from './myproducts.styles'
-import InputField from '../../components/buttons/fields/InputField'
+import InputField from '../../components/fields/InputField'
+import { useGlobalStore, useProductsStore } from '../../utils/store/products.store'
+import ButtonAction from '../../components/buttons/ButtonAction'
+import { useNavigation } from '@react-navigation/native'
 
 const MyProductsPage = () => {
 
-    const [products, setProducts] = React.useState(productsExample)
-    const [filteredProducts, setFilteredProducts] = React.useState([])
+    const { productsStore } = useProductsStore()
+    const { setProductStore } = useGlobalStore()
+    const [products, setProducts] = useState(productsStore)
+    const [filteredProducts, setFilteredProducts] = React.useState(productsStore)
 
-    const getAllProducts = async () => {
-        API.products.getAllProducts()
-            .then((response) => {
-                setProducts(response)
-                setFilteredProducts(response)
-            })
-    }
+    const navigate = useNavigation()
+
 
     const handleSearch = (text) => {
         const filtered = products.filter((product) => {
@@ -27,23 +27,39 @@ const MyProductsPage = () => {
         setFilteredProducts(filtered)
     }
 
-    React.useEffect(() => {
-        // getAllProducts()
-    }, [])
+    const addProduct = () => {
+        setProductStore({
+            id: '00' + (products.length + 1),
+        })
+        navigate.navigate('edit')
+    }
 
-    React.useEffect(() => {
-        console.log('productsExample', productsExample)
-    }, [productsExample])
+
+    useEffect(() => {
+        setFilteredProducts(productsStore)
+        setProducts(productsStore)
+    }, [productsStore])
+
+
+
+    const searchField = {
+        label: 'Search',
+        placeholder: 'Search...',
+        onChange: handleSearch,
+        validation: 'text',
+        disabled: false,
+        value: ''
+    }
+
 
     return (
         <View style={styles.container}>
-            <Text>My Products Page</Text>
-            <InputField
-                label='Search'
-                placeholder='Search...'
-                onChange={handleSearch}
-            />
-            <ProductsContainer items={filteredProducts} />
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <InputField field={searchField} />
+                <ProductsContainer items={filteredProducts} />
+                <View style={{ height: 30 }} />
+            </ScrollView>
+            <ButtonAction title='Agregar' severity='primary' action={addProduct} />
         </View>
     )
 }

@@ -1,23 +1,43 @@
 import React from 'react'
-import { TouchableOpacity, Text } from 'react-native'
+import { TouchableOpacity, Text, View } from 'react-native'
+import styles from './buttonaction.styles'
 
 const ButtonAction = ({ title, severity, action }) => {
 
-    const severityBg = {
-        primary: '#d7e612',
-        secondary: '#aaadd4',
-        danger: '#cf2020'
+
+    const severityStyles = {
+        primary: {
+            bg: '#ebee40',
+            border: '#000'
+        },
+        secondary: {
+            bg: '#e1e1eb',
+            border: '#a19e9e',
+        },
+        danger: {
+            bg: '#c22424',
+            color: '#fff',
+            border: 'transparent'
+        }
+
     }
 
+
     return (
-        <TouchableOpacity
-            style={[
-                styles.button,
-                { backgroundColor: severityBg[severity] }
-            ]}
-            onPress={action}
-        >
-            <Text>{title}</Text>
+        <TouchableOpacity onPress={action}>
+            <View style={[
+                styles.buttonAction_container,
+                {
+                    backgroundColor: severityStyles[severity].bg,
+                    borderColor: severityStyles[severity].border
+                }
+            ]}>
+                <Text
+                    style={[styles.buttonAction_title,
+                    { color: severityStyles[severity].color }
+                    ]}>
+                    {title}</Text>
+            </View>
         </TouchableOpacity>
     )
 }
