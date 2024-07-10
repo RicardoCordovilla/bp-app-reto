@@ -25,8 +25,7 @@ const ProductForm = ({ product, updateProduct }) => {
         { label: 'Fecha de revisión', placeholder: 'Inrgresa la fecha de revisión del producto', value: date_revision, onChange: setDateRevisionForm, disabled: true, required: true }
     ]
 
-    const handleSave = () => {
-        
+    const handleSave = () => {        
         const product = {
             id: idForm,
             name: nameForm,
@@ -35,15 +34,7 @@ const ProductForm = ({ product, updateProduct }) => {
             date_release: dateReleaseForm,
             date_revision: dateRevisionForm
         }
-        API.products.createProduct(product)
-            .then((response) => {
-                console.log(response)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-
-        // updateProduct(product)
+        updateProduct(product)
     }
 
     const resetForm = () => {

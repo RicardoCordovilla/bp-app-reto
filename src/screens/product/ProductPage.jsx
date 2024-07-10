@@ -8,6 +8,7 @@ import ProductBody from '../../components/product/body/ProductBody';
 import LogoField from '../../components/product/body/logofield/LogoField';
 import ProductActions from '../../components/product/actions/ProductActions';
 import ButtonAction from '../../components/buttons/ButtonAction';
+import API from '../../utils/fetch/api';
 
 const ProductPage = () => {
   const navigate = useNavigation()
@@ -20,13 +21,17 @@ const ProductPage = () => {
   }
 
   const handleDelete = () => {
-    // removeProduct(productStore.id)
     setModalVisible(true)
   }
 
   const deleteProduct = () => {
-    removeProduct(productStore.id)
-    navigate.navigate('home')
+    API.products.deleteProduct(productStore.id)
+      .then((response) => {
+        removeProduct(productStore.id)
+        console.log(response)
+        navigate.navigate('home')
+      })
+      .catch((error) => { console.log(error) })
   }
 
 

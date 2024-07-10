@@ -5,6 +5,7 @@ import { useGlobalStore, useProductsStore } from '../../utils/store/products.sto
 import styles from './editpage.styles'
 import { useNavigation } from '@react-navigation/native'
 import API from '../../utils/fetch/api'
+import axios from 'axios'
 
 const EditPage = () => {
     const navigate = useNavigation()
@@ -17,9 +18,20 @@ const EditPage = () => {
     }
 
     const createProductApi = async (product) => {
-        const response = await API.products.createProduct(product)
-        console.log(response)
-        return response
+        const body = {
+            name: product.name,
+            description: product.description
+        }
+        API.products.createProduct(body)
+            .then((response) => {
+                console.log(response)
+                const newProduct = response.data
+                const newProducts = [...productsStore, newProduct]
+                setProductsStore(newProducts)
+                navigate.navigate('home')
+            })
+            .catch((error) => { console.log(error) })
+
     }
 
 
@@ -31,7 +43,7 @@ const EditPage = () => {
 
     const updateProducts = (product) => {
         if (!verifyProductExist(product)) {
-            createNewProduct(product)
+            createProductApi(product)
         }
 
         else {

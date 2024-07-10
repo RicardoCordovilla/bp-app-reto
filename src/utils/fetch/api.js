@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseUrl = "http:192.168.100.2:9000/";
+export const baseUrl = "http:192.168.100.22:9000/";
 const mainpath = "bp/";
 const authorId = "1234567890";
 
@@ -25,19 +25,14 @@ const API = {
             return response.data;
         },
         createProduct: async (productData) => {
-            console.log(productData);
+            console.log(baseUrl + mainpath + paths.products);
             const response = await axios.post(
                 baseUrl
                 + mainpath
                 + paths.products,
                 productData,
-                {
-                    headers: {
-                        authorId: authorId
-                    }
-                }
             )
-            return response.data;
+            return response;
         },
         updateProduct: async (productData) => {
             const response = await axios.put(
@@ -60,7 +55,7 @@ const API = {
                 + paths.products,
                 {
                     params: {
-                     id: productId
+                        id: productId
                     },
                     headers: {
                         authorId: authorId
@@ -77,7 +72,7 @@ const API = {
                 + "/verification",
                 {
                     params: {
-                     id: productId
+                        id: productId
                     },
                     headers: {
                         authorId: authorId

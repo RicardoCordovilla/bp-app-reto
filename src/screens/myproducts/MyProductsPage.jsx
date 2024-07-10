@@ -17,11 +17,13 @@ const MyProductsPage = () => {
     const { setProductStore } = useGlobalStore()
     const [products, setProducts] = useState(productsStore)
     const [filteredProducts, setFilteredProducts] = React.useState(productsStore)
+    const [searchText, setSearchText] = React.useState('')
+
 
     const searchField = {
         label: 'Search',
         placeholder: 'Search...',
-        onChange: handleSearch,
+        onChange: setSearchText,
         validation: 'text',
         disabled: false,
         value: ''
@@ -47,6 +49,10 @@ const MyProductsPage = () => {
         const response = await API.products.getAllProducts()
         setProducts(response)
     }
+
+    useEffect(() => {
+        handleSearch(searchText)
+    }, [searchText])
 
     useEffect(() => {
         setFilteredProducts(productsStore)
