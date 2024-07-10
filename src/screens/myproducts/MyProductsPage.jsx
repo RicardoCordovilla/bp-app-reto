@@ -3,21 +3,29 @@ import { ScrollView, Text, TextInput, View } from 'react-native'
 import SearchField from '../../components/searchfield/SearchField'
 import ProductsContainer from '../../components/productscontainer/ProductsContainer'
 import API from '../../utils/fetch/api'
-import { productsExample } from '../../utils/fetch/products'
 import styles from './myproducts.styles'
 import InputField from '../../components/fields/InputField'
 import { useGlobalStore, useProductsStore } from '../../utils/store/products.store'
 import ButtonAction from '../../components/buttons/ButtonAction'
 import { useNavigation } from '@react-navigation/native'
 
-const MyProductsPage = () => {
 
+
+const MyProductsPage = () => {
+    const navigate = useNavigation()
     const { productsStore } = useProductsStore()
     const { setProductStore } = useGlobalStore()
     const [products, setProducts] = useState(productsStore)
     const [filteredProducts, setFilteredProducts] = React.useState(productsStore)
 
-    const navigate = useNavigation()
+    const searchField = {
+        label: 'Search',
+        placeholder: 'Search...',
+        onChange: handleSearch,
+        validation: 'text',
+        disabled: false,
+        value: ''
+    }
 
 
     const handleSearch = (text) => {
@@ -35,28 +43,31 @@ const MyProductsPage = () => {
     }
 
 
+    const getProducts = async () => {
+        const response = await API.products.getAllProducts()
+        setProducts(response)
+    }
+
     useEffect(() => {
         setFilteredProducts(productsStore)
         setProducts(productsStore)
     }, [productsStore])
 
 
+    useEffect(() => {
+        getProducts()
+    }, [])
 
-    const searchField = {
-        label: 'Search',
-        placeholder: 'Search...',
-        onChange: handleSearch,
-        validation: 'text',
-        disabled: false,
-        value: ''
-    }
 
 
     return (
         <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <InputField field={searchField} />
-                <ProductsContainer items={filteredProducts} />
+                {
+                    filteredProducts.length > 0 &&
+                    <ProductsContainer items={filteredProducts} />
+                }
                 <View style={{ height: 30 }} />
             </ScrollView>
             <ButtonAction title='Agregar' severity='primary' action={addProduct} />

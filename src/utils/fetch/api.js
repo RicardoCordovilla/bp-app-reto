@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseUrl = "https://api.example.com";
+export const baseUrl = "http:192.168.100.2:9000/";
 const mainpath = "bp/";
 const authorId = "1234567890";
 

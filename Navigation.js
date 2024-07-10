@@ -15,7 +15,7 @@ export default function Navigation() {
     const { setProductsStore } = useProductsStore()
 
     useEffect(() => {
-        setProductsStore(productsExample)
+        // setProductsStore(productsExample)
     }, [])
 
     return (
