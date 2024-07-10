@@ -4,6 +4,7 @@ import ProductForm from '../../components/productform/ProductForm'
 import { useGlobalStore, useProductsStore } from '../../utils/store/products.store'
 import styles from './editpage.styles'
 import { useNavigation } from '@react-navigation/native'
+import API from '../../utils/fetch/api'
 
 const EditPage = () => {
     const navigate = useNavigation()
@@ -15,10 +16,16 @@ const EditPage = () => {
         return exist
     }
 
+    const createProductApi = async (product) => {
+        const response = await API.products.createProduct(product)
+        console.log(response)
+        return response
+    }
+
+
     const createNewProduct = (product) => {
-        const newProducts = [...productsStore, product]
-        setProductsStore(newProducts)
-        navigate.navigate('home')
+        // const newProducts = [...productsStore, product]
+        // setProductsStore(newProducts)
         return
     }
 

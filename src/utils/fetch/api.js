@@ -25,6 +25,7 @@ const API = {
             return response.data;
         },
         createProduct: async (productData) => {
+            console.log(productData);
             const response = await axios.post(
                 baseUrl
                 + mainpath

@@ -3,6 +3,7 @@ import { SafeAreaView, ScrollView, View } from 'react-native'
 import InputField from '../fields/InputField'
 import styles from './productform.styles'
 import ButtonAction from '../buttons/ButtonAction'
+import API from '../../utils/fetch/api'
 
 
 const ProductForm = ({ product, updateProduct }) => {
@@ -25,6 +26,7 @@ const ProductForm = ({ product, updateProduct }) => {
     ]
 
     const handleSave = () => {
+        
         const product = {
             id: idForm,
             name: nameForm,
@@ -33,7 +35,15 @@ const ProductForm = ({ product, updateProduct }) => {
             date_release: dateReleaseForm,
             date_revision: dateRevisionForm
         }
-        updateProduct(product)
+        API.products.createProduct(product)
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+        // updateProduct(product)
     }
 
     const resetForm = () => {
